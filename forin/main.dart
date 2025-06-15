@@ -10,7 +10,17 @@ void main(List<String> args) {
     'Leonhart',
   ];
 
+  int avg = 0;
+
   for (String n in names) {
     print('Teilnehmer: $n');
   }
+
+  for (int p in points) {
+    avg = avg + p;
+  }
+
+  print(
+    'Der Durchschnitt beträgt: ${(avg / points.length).toStringAsPrecision(2)}',
+  );
 }
