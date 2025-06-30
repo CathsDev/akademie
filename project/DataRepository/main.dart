@@ -1,8 +1,10 @@
-class MoodStatus {}
+class Data {}
 
 abstract class DataRepository {
-  void sendMoodStatus(MoodStatus moodstatus);
-  List<MoodStatus> getMoodStatus();
+  void sendData(Data data); // create
+  List<Data> getData(); // read
+  List<Data> updateData(); // update
+  List<Data> deleteData(); // delete
 }
 
 void main() {}
