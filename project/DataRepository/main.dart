@@ -57,7 +57,9 @@ abstract class DatabaseRepository {
 }
 
 class MockDataRepository implements DatabaseRepository {
-  List<String> userData = [];
+  List<User> userData = [];
+  List<CleaningTask> cTaskData = [];
+  List<Zone> zoneData = [];
 
   @override
   void createUser(User userData) {
