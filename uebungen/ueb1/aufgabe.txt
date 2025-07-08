@@ -1,0 +1,51 @@
+Anforderungen
+1. Datenstruktur
+Verwende eine Map, um Schülerdaten zu speichern:
+
+Map<String, List<double>> schülerNoten = {};
+Key: Name des Schülers (String)
+Value: Liste der Noten (List<double>)
+
+2. Zu implementierende Funktionen
+
+a) void addSchüler(Map<String, List<double>> noten, String name)
+Fügt einen neuen Schüler zur Map hinzu
+Initialisiert mit einer leeren Notenliste
+
+b) void addNote(Map<String, List<double>> noten, String name, double note)
+Fügt eine Note zu einem Schüler hinzu
+Falls der Schüler nicht existiert, gib eine Fehlermeldung aus
+
+c) double berechneDurchschnitt(List<double> noten)
+Berechnet den Durchschnitt einer Notenliste
+Gibt 0.0 zurück, wenn die Liste leer ist
+
+d) void zeigeAlleSchüler(Map<String, List<double>> noten)
+Zeigt alle Schüler mit ihren Noten und Durchschnitt an
+
+3. Hauptprogramm
+Erstelle eine main()-Funktion, die:
+Eine Map für Schülernoten erstellt
+3 Schüler hinzufügt
+Jedem Schüler 2-3 Noten hinzufügt
+Alle Schüler mit ihren Durchschnitten anzeigt
+Beispielcode-Gerüst
+void main() {
+ Map<String, List<double>> schülerNoten = {};
+ // Schüler hinzufügen
+ addSchüler(schülerNoten, "Max");
+ addSchüler(schülerNoten, "Anna");
+ addSchüler(schülerNoten, "Tom");
+ // Noten hinzufügen
+ addNote(schülerNoten, "Max", 1.5);
+ addNote(schülerNoten, "Max", 2.0);
+ // ... weitere Noten
+ // Alle Schüler anzeigen
+ zeigeAlleSchüler(schülerNoten);
+}
+// Implementiere hier deine Funktionen..
+Erwartete Ausgabe
+=== Schülerübersicht ===
+Max: [1.5, 2.0] - Durchschnitt: 1.75
+Anna: [1.0, 1.5, 2.0] - Durchschnitt: 1.50
+Tom: [2.5, 3.0] - Durchschnitt: 2.75
