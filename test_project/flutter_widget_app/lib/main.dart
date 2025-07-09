@@ -21,7 +21,11 @@ class MainApp extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: EdgeInsetsGeometry.directional(top: 56, bottom: 24),
+                padding: EdgeInsetsGeometry.directional(
+                  top: 56,
+                  start: 8,
+                  bottom: 24,
+                ),
                 child: Text(
                   'Hello App Akademie!',
                   style: TextStyle(
