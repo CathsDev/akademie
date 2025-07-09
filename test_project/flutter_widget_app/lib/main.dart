@@ -119,45 +119,6 @@ class MainApp extends StatelessWidget {
             ],
           ),
         ),
-        /* body: Center(
-          child: Column(
-            children: [
-              SizedBox(
-                width: double.infinity,
-                child: Padding(
-                  padding: EdgeInsets.all(8),
-                  child: Text(
-                    'Hello App Akademie!',
-                    style: TextStyle(
-                      color: Colors.blue,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-              Row(
-                children: [
-                  Container(
-                    margin: EdgeInsets.all(8),
-                    padding: EdgeInsets.all(50),
-                    color: Colors.red,
-                  ),
-                  Container(
-                    margin: EdgeInsets.all(8),
-                    padding: EdgeInsets.all(50),
-                    color: Colors.green,
-                  ),
-                  Container(
-                    margin: EdgeInsets.all(8),
-                    padding: EdgeInsets.all(50),
-                    color: Colors.blue,
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ), */
       ),
     );
   }
