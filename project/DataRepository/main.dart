@@ -1,145 +1,98 @@
-// User
-class User {}
-
-// Stimmung / Energie
-// class MoodStatus {}
-
-// Einzelene Aufgaben (Aufräumen)
-class CleaningTask {}
-
-// Einzelene Aufgaben (Tätigkeiten)
-class ActivityTask {}
-
-// Einzelene Aufgaben (Eigene)
-class PrivatTask {}
-
-// Aufgaben Arten (Bezogen auf Räume, bei Überforderung, nach Tätigkeiten)
-// class TaskGroup {}
-
 // Räume
-class Zone {}
+class Zone {
+  final String id;
+  final String name;
 
-// App Einstellungen
-// class AppSettings {}
+  const Zone({required this.id, required this.name});
 
-abstract class DatabaseRepository {
-  // void sendData(Data data); // create
-  void createUser(User userData);
-  void createCleaningTask(CleaningTask cTaskData);
-  //void createActivityTask(ActivityTask aTaskData);
-  //void createPrivatTask(PrivatTask pTaskData);
-  void createZone(Zone zoneData);
+  Zone copyWith({String? id, String? name}) {
+    return Zone(id: id ?? this.id, name: name ?? this.name);
+  }
 
-  // List<Data> getData(); // read
-  List<User> getUser(int id);
-  List<CleaningTask> getAllCleaningTasks();
-  List<CleaningTask> getCleaningTask(int id);
-  //List<ActivityTask> getAllActivityTasks();
-  //List<ActivityTask> getActivityTask(int id);
-  //List<PrivatTask> getAllPrivatTasks();
-  //List<PrivatTask> getPrivatTask(int id);
-  List<Zone> getAllZones();
-  List<Zone> getZone(int id);
-
-  // List<Data> updateData(); // update
-  List<User> updateUser(int id);
-  List<CleaningTask> updateCleaningTask(int id);
-  //List<ActivityTask> updateActivityTask(int id);
-  //List<PrivatTask> updatePrivatTask(int id);
-  List<Zone> updateZone(int id);
-
-  // List<Data> deleteData(); // delete
-  List<User> deleteUser(int id);
-  List<CleaningTask> deleteCleaningTask(int id);
-  //List<ActivityTask> deleteActivityTask(int id);
-  //List<PrivatTask> deletePrivatTask(int id);
-  List<Zone> deleteZone(int id);
+  factory Zone.empty() => const Zone(id: '', name: '');
 }
 
-class MockDataRepository implements DatabaseRepository {
-  List<User> userData = [];
-  List<CleaningTask> cTaskData = [];
-  List<Zone> zoneData = [];
+abstract class DatabaseRepository {
+  // Create
+  Zone createZone(Zone zoneData);
 
-  @override
-  void createUser(User userData) {
-    // TODO: implement createUser
-  }
+  // Read
+  List<Zone> get items;
+  Zone? getZoneById(String id);
 
+  // Update
+  Zone updateZone(Zone updatedZone);
+
+  // Delete
+  void deleteZone(String id);
+}
+
+class OnlineDbRepository implements DatabaseRepository {
   @override
-  List<User> getUser(int id) {
-    // TODO: implement getUser
+  Zone? getZoneById(String id) {
+    // TODO: implement getZoneById
     throw UnimplementedError();
   }
 
   @override
-  List<User> updateUser(int id) {
-    // TODO: implement updateUser
-    throw UnimplementedError();
-  }
-
-  @override
-  List<User> deleteUser(int id) {
-    // TODO: implement deleteUser
-    throw UnimplementedError();
-  }
-
-  @override
-  void createCleaningTask(CleaningTask cTaskData) {
-    // TODO: implement createCleaningTask
-  }
-
-  @override
-  List<CleaningTask> getAllCleaningTasks() {
-    // TODO: implement getAllCleaningTasks
-    throw UnimplementedError();
-  }
-
-  @override
-  List<CleaningTask> getCleaningTask(int id) {
-    // TODO: implement getCleaningTask
-    throw UnimplementedError();
-  }
-
-  @override
-  List<CleaningTask> updateCleaningTask(int id) {
-    // TODO: implement updateCleaningTask
-    throw UnimplementedError();
-  }
-
-  @override
-  List<CleaningTask> deleteCleaningTask(int id) {
-    // TODO: implement deleteCleaningTask
-    throw UnimplementedError();
-  }
-
-  @override
-  void createZone(Zone zoneData) {
+  Zone createZone(Zone zoneData) {
     // TODO: implement createZone
-  }
-
-  @override
-  List<Zone> getAllZones() {
-    // TODO: implement getAllZones
     throw UnimplementedError();
   }
 
   @override
-  List<Zone> getZone(int id) {
-    // TODO: implement getZone
-    throw UnimplementedError();
-  }
+  // TODO: implement items
+  List<Zone> get items => throw UnimplementedError();
 
   @override
-  List<Zone> updateZone(int id) {
+  Zone updateZone(Zone updatedZone) {
     // TODO: implement updateZone
     throw UnimplementedError();
   }
 
   @override
-  List<Zone> deleteZone(int id) {
+  void deleteZone(String id) {
     // TODO: implement deleteZone
-    throw UnimplementedError();
+  }
+}
+
+class InMemoryZoneDB implements DatabaseRepository {
+  final List<Zone> _items = [
+    const Zone(id: '1', name: 'Wohnzimmer'),
+    const Zone(id: '2', name: 'Schlafzimmer'),
+    const Zone(id: '3', name: 'Küche'),
+    const Zone(id: '4', name: 'Badezimmer'),
+    const Zone(id: '5', name: 'Flur'),
+    const Zone(id: '6', name: 'Balkon'),
+  ];
+
+  int _idCounter = 7;
+
+  // Read
+  List<Zone> get items => List.unmodifiable(_items);
+
+  Zone? getZoneById(String id) => _items
+      .where((z) => z.id == id)
+      .cast<Zone?>()
+      .firstWhere((z) => z != null, orElse: () => null);
+
+  // Create
+  Zone createZone(Zone zoneData) {
+    final created = zoneData.copyWith(id: (_idCounter++).toString());
+    _items.add(created);
+    return created;
+  }
+
+  @override
+  void updateZone(Zone updatedZone) {
+    final i = _items.indexWhere((z) => z.id == updatedZone.id);
+    if (i == -1) return;
+    _items[i] = updatedZone;
+  }
+
+  @override
+  void deleteZone(String id) {
+    _items.removeWhere((z) => z.id == id);
   }
 }
 
